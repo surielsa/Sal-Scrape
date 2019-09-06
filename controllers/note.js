@@ -1,23 +1,24 @@
-// Controller for our notes
+// Notes Controller
 // ========================
 var db = require("../models");
 
+// Find, Create & Delete Note
 module.exports = {
-  // Find one note
-  find: function(req, res) {
-    db.Note.find({ _headlineId: req.params.id }).then(function(dbNote) {
+
+  find: function (req, res) {
+    db.Note.find({ _headlineId: req.params.id }).then(function (dbNote) {
       res.json(dbNote);
     });
   },
-  // Create a new note
-  create: function(req, res) {
-    db.Note.create(req.body).then(function(dbNote) {
+
+  create: function (req, res) {
+    db.Note.create(req.body).then(function (dbNote) {
       res.json(dbNote);
     });
   },
-  // Delete a note with a given id
-  delete: function(req, res) {
-    db.Note.remove({ _id: req.params.id }).then(function(dbNote) {
+
+  delete: function (req, res) {
+    db.Note.remove({ _id: req.params.id }).then(function (dbNote) {
       res.json(dbNote);
     });
   }

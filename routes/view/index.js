@@ -1,7 +1,7 @@
 var router = require("express").Router();
 var db = require("../../models");
 
-// This route renders the homepage
+// Homepage Route
 router.get("/", function(req, res) {
   db.Headline.find({ saved: false })
     .sort({ date: -1 })
@@ -10,7 +10,7 @@ router.get("/", function(req, res) {
     });
 });
 
-// This route renders the saved handlebars page
+// Saved News Route
 router.get("/saved", function(req, res) {
   db.Headline.find({ saved: true })
     .sort({ date: -1 })

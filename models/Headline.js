@@ -1,31 +1,34 @@
-// Headline model
+// Headline Model
 // ==============
 
-// Require mongoose
+// Mongoose
 var mongoose = require("mongoose");
 
-// Create a schema class using mongoose's schema method
+// Mongoose Schema Method
 var Schema = mongoose.Schema;
 
-// Create the headlineSchema with our schema class
+// Headline Schema
 var headlineSchema = new Schema({
-  // headline, a string, must be entered
+  // Headline
   headline: {
     type: String,
     required: true,
     unique: { index: { unique: true } }
   },
-  // summary, a string, must be entered
+
+// Summary
   summary: {
     type: String,
     required: true
   },
-  // url, a string, must be entered
+
+  // Link
   url: {
     type: String,
     required: true
   },
-  // date is just a string
+  
+// Date
   date: {
     type: Date,
     default: Date.now
@@ -36,8 +39,8 @@ var headlineSchema = new Schema({
   }
 });
 
-// Create the Headline model using the headlineSchema
+// Create Headline From Schema
 var Headline = mongoose.model("Headline", headlineSchema);
 
-// Export the Headline model
+// Headline Modal Export
 module.exports = Headline;

@@ -1,18 +1,26 @@
 {
-  "name": "mongo_homework",
+  "name": "newsmongdbscraper",
   "version": "1.0.0",
-  "description": "",
+  "description": "MongoDB NY Times News Scraper",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "keywords": [
+    "express",
+    "handebars",
+    "mongoose",
+    "cheerio",
+    "axios"
+  ],
+  "author": "CARLO.CODES",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
-    "mongoose": "^5.1.6"
+    "mongoose": "^5.4.4",
+    "node": "^11.6.0"
   }
 }

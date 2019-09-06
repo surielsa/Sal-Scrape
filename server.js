@@ -1,20 +1,13 @@
-// Web Scraper Homework Solution Example
-// (be sure to watch the video to see
-// how to operate the site in the browser)
-// -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
-
-// Require our dependencies
+// Dependencies
 var express = require("express");
 var mongoose = require("mongoose");
 var exphbs = require("express-handlebars");
 
-// Set up our port to be either the host's designated port, or 3000
+// PORT Setup
 var PORT = process.env.PORT || 3000;
 
-// Instantiate our Express App
+// Instantiate Express & Require Routes
 var app = express();
-
-// Require our routes
 var routes = require("./routes");
 
 // Parse request body as JSON
@@ -23,11 +16,11 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Connect Handlebars to our Express app
+// Connect Handlebars & Express
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Have every request go through our route middleware
+// Request Route Middleware
 app.use(routes);
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
