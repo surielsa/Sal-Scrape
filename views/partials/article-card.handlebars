@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title" id="article-title" data-article-id="{{this.id}}">
+            {{this.headline}}
+        </h4>
+        <h6 class="card-subtitle subtitle">
+            {{this.summary}}
+        </h6>
+        <a href="http://www.nytimes.com{{this.url}}" class="btn btn-light card-link">View on NYTimes</a>
+        {{> article-buttons}}
+
+    </div>
+
+</div>
+
+<div class="collapse" id="commentCollapse-{{this._id}}">
+    <div class="card card-body">
+        {{#if this.comments}}
+        <ul class="list-group">
+            {{#each this.comments}}
+            <li class="list-group-item">{{this.text}}
+                <button type="button" class="close delete" aria-label="Close" delete-comment-id="{{this._id}}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+
+            {{/each}}
+        </ul>
+
+        {{/if}}
+        <div class="form-group">
+            <label for="comment-textarea">Comment</label>
+            <textarea name="" id="comment-textarea-{{this._id}}" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-light submit-comment" data-article-id="{{this._id}}">Submit Comment</button>
+    </div>
+</div>

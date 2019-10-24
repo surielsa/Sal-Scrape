@@ -1,35 +1,38 @@
-// Dependencies
-var express = require("express");
-var mongoose = require("mongoose");
-var exphbs = require("express-handlebars");
+const express = require('express');
+const app = express();
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const exphbs = require('express-handlebars');
 
-// PORT Setup
-var PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-// Instantiate Express & Require Routes
-var app = express();
-var routes = require("./routes");
+const DB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoscraper';
+mongoose.Promise = global.Promise;
 
-// Parse request body as JSON
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-// Make public a static folder
-app.use(express.static("public"));
+mongoose.connect(DB_URI, { useNewUrlParser: true });
+const db = mongoose.connection;
 
-// Connect Handlebars & Express
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+db.on('error', console.error.bind('console','MongoDB connection error'));
+db.once('open', () => console.log('connected to database'));
 
-// Request Route Middleware
-app.use(routes);
+app.use(logger('dev'));
 
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-// Connect to the Mongo DB
-mongoose.connect(MONGODB_URI);
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
 
-// Listen on the port
-app.listen(PORT, function() {
-  console.log("Listening on port: " + PORT);
-});
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static('./public'));
+
+// Linking routes
+require('./routes/html-routes')(app);
+require('./routes/api-routes')(app);
+
+
+
+
+const server = app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+module.exports = server;
